@@ -19,7 +19,16 @@ filename <- basename(url)
 data <- read.csv("msleep_ggplot2.csv")
 class(data)
 
-control <- filter(data, order == "Primates") %>% select(sleep_total)
+control <- filter(data, order == "Primates") %>% select(sleep_total) %>% unlist
 
 nrow(control)
 class(control)
+
+mean(control)
+
+?summarise
+
+control <- filter(data, order == "Primates") %>% 
+  summarise(mean_size = mean(sleep_to, na.rm = TRUE))
+
+control
