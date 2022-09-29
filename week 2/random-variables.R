@@ -16,11 +16,22 @@ mean(treatment)
 
 obs <- mean(treatment) - mean(control)
 
+# === distribucion nula
 #probamos que pasa cuando la hipotesis nula es verdadera
 # "no hay efectos en la dieta alta en grasa"
 # tomo un nuevo grupo de control de la poblacion
 # y hago de cuenta que tengo un grupo con un tratamiento que es "sin tratamiento"
-control <- sample(population, 12)
-treatment <- sample(population, 12)
-mean(treatment) - mean(control)
 
+n <- 1000
+nulls <- vector("numeric", n)
+for (i in 1:n){
+  control <- sample(population, 12)
+  treatment <- sample(population, 12)
+  nulls[i] <- mean(treatment) - mean(control)
+}
+
+sum(nulls > obs) / n #propocion de control > observado
+mean(nulls > obs) #esto da lo mismo
+
+mean(abs(nulls) > obs) #veo cuan seguido es mayor en valor absoluto(modulo) <- p-value
+# p-value = probabilidad de que el resultado de la distribucion nula sea mayor a lo observado cuando la hipotesis nula es verdadera
